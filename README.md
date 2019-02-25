@@ -10,5 +10,5 @@ The idea for this project is to create a nice and simple counter for a game of M
 * Be able to change settings for the amount of life points players start on.
 
 ### Software To Use
-<b>Programming language : Python 3<br>
-UI : PyQt 5 & Qt Designer
+<b>Programming language</b> : Python 3<br>
+<b>UI</b> : PyQt 5 & Qt Designer
