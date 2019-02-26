@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>338</height>
+    <width>800</width>
+    <height>412</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,14 +18,19 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>60</y>
+      <y>140</y>
       <width>791</width>
       <height>231</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="3">
-      <widget class="QLabel" name="PlayerTwoCounter_label">
+     <item row="1" column="1">
+      <widget class="QLabel" name="playerOneCounter_label">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>20</string>
        </property>
@@ -34,18 +39,13 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="3">
-      <widget class="QLabel" name="playerTwo_label">
-       <property name="text">
-        <string>Player Two</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLabel" name="playerOne_label">
+       <property name="font">
+        <font>
+         <pointsize>25</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Player One</string>
        </property>
@@ -61,8 +61,13 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="playerOneCounter_label">
+     <item row="1" column="3">
+      <widget class="QLabel" name="PlayerTwoCounter_label">
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>20</string>
        </property>
@@ -71,10 +76,25 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="AddLife01_pushButton">
+     <item row="3" column="3">
+      <widget class="QPushButton" name="TakeLife02_pushButton">
        <property name="text">
-        <string>+</string>
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="playerTwo_label">
+       <property name="font">
+        <font>
+         <pointsize>25</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Player Two</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -85,10 +105,20 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
-      <widget class="QPushButton" name="TakeLife02_pushButton">
+     <item row="2" column="1">
+      <widget class="QPushButton" name="AddLife01_pushButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
-        <string>-</string>
+        <string>+</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="reset_pushButton">
+       <property name="text">
+        <string>Reset</string>
        </property>
       </widget>
      </item>
@@ -100,17 +130,28 @@
       <x>-1</x>
       <y>10</y>
       <width>791</width>
-      <height>41</height>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="Title_label">
+       <property name="font">
+        <font>
+         <pointsize>25</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/images/imgs/magicLogo.png);</string>
+       </property>
        <property name="text">
-        <string>Magic: The Gathering LIFE COUNTER</string>
+        <string/>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>2</number>
        </property>
       </widget>
      </item>
@@ -122,7 +163,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>799</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
@@ -153,6 +194,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -8,6 +8,7 @@ The idea for this project is to create a nice and simple counter for a game of M
 
 ### Possible Additional Features
 * Be able to change settings for the amount of life points players start on.
+* Change colour of Player counter areas based on set colour used (Red, Blue, Green, Black, White).
 
 ### Software To Use
 <b>Programming language</b> : Python 3<br>
