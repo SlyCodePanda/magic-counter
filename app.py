@@ -1,6 +1,6 @@
 import sys
 from functools import partial
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from mainWindow import Ui_MainWindow
 
 
@@ -39,19 +39,29 @@ class AppWindow(QMainWindow):
         if player == "player02":
             print("Taking life from player 2!")
             # Getting the current life value of player 2.
-            player02Counter = int(self.ui.PlayerTwoCounter_label.text())
-            player02Counter = player02Counter - 1
-            print("Current life = %s" % player02Counter)
-            self.ui.PlayerTwoCounter_label.setText(str(player02Counter))
+            self.player02Counter = int(self.ui.PlayerTwoCounter_label.text())
+            self.player02Counter = self.player02Counter - 1
+            print("Current life = %s" % self.player02Counter)
+            self.ui.PlayerTwoCounter_label.setText(str(self.player02Counter))
+
+            # Check if player 2 counter = 0.
+            if self.ui.PlayerTwoCounter_label.text() == '0':
+                # Present pop-up window.
+                self.popup()
 
         # Reducing Player 01 life points
         elif player == "player01":
             print("Taking life from player 1!")
             # Getting the current life value of player 2.
-            player01Counter = int(self.ui.playerOneCounter_label.text())
-            player01Counter = player01Counter - 1
-            print("Current life = %s" % player01Counter)
-            self.ui.playerOneCounter_label.setText(str(player01Counter))
+            self.player01Counter = int(self.ui.playerOneCounter_label.text())
+            self.player01Counter = self.player01Counter - 1
+            print("Current life = %s" % self.player01Counter)
+            self.ui.playerOneCounter_label.setText(str(self.player01Counter))
+
+            # Check if player 1 counter = 0.
+            if self.ui.playerOneCounter_label.text() == '0':
+                # Present pop-up window.
+                self.popup()
 
         return
 
@@ -60,22 +70,41 @@ class AppWindow(QMainWindow):
         if player == "player02":
             print("Adding life to player 2!")
             # Getting the current life value of player 2.
-            player02Counter = int(self.ui.PlayerTwoCounter_label.text())
-            player02Counter = player02Counter + 1
-            print("Current life = %s" % player02Counter)
-            self.ui.PlayerTwoCounter_label.setText(str(player02Counter))
+            self.player02Counter = int(self.ui.PlayerTwoCounter_label.text())
+            self.player02Counter = self.player02Counter + 1
+            print("Current life = %s" % self.player02Counter)
+            self.ui.PlayerTwoCounter_label.setText(str(self.player02Counter))
 
         # Reducing Player 01 life points
         elif player == "player01":
             print("Adding life to player 1!")
             # Getting the current life value of player 2.
-            player01Counter = int(self.ui.playerOneCounter_label.text())
-            player01Counter = player01Counter + 1
-            print("Current life = %s" % player01Counter)
-            self.ui.playerOneCounter_label.setText(str(player01Counter))
+            self.player01Counter = int(self.ui.playerOneCounter_label.text())
+            self.player01Counter = self.player01Counter + 1
+            print("Current life = %s" % self.player01Counter)
+            self.ui.playerOneCounter_label.setText(str(self.player01Counter))
 
         return
 
+    # Shows popup declaring who is the winner and who is the loser.
+    def popup(self):
+        winner = ""
+
+        print("player 02 = %s" % self.player02Counter)
+
+        #Find out who had the lowest health, and therefore find out the winner.
+        # if int(self.player01Counter) > int(self.player02Counter):
+        #     winner = self.player01Counter
+        # else:
+        #     winner = self.player02Counter
+
+        msgBox = QMessageBox()
+        msgBox.setText("Congratulations! %s is the winner!" % winner)
+
+        msgBox.show()
+        msgBox.exec_()
+
+    # Reset all player health to base value.
     def reset(self):
         print("Resetting life points to base number")
         self.ui.playerOneCounter_label.setText(str(self.basePoints))

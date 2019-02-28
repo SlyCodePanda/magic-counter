@@ -23,8 +23,10 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.playerOneCounter_label = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.playerOneCounter_label.setFont(font)
+        self.playerOneCounter_label.setStyleSheet("background-image: url(:/images/imgs/Untitled-1.png);\n"
+"color: rgb(255, 251, 213);")
         self.playerOneCounter_label.setAlignment(QtCore.Qt.AlignCenter)
         self.playerOneCounter_label.setObjectName("playerOneCounter_label")
         self.gridLayout.addWidget(self.playerOneCounter_label, 1, 1, 1, 1)
@@ -40,8 +42,10 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.TakeLife01_pushButton, 3, 1, 1, 1)
         self.PlayerTwoCounter_label = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.PlayerTwoCounter_label.setFont(font)
+        self.PlayerTwoCounter_label.setStyleSheet("background-image: url(:/images/imgs/Untitled-1.png);\n"
+"color: rgb(255, 251, 213);")
         self.PlayerTwoCounter_label.setAlignment(QtCore.Qt.AlignCenter)
         self.PlayerTwoCounter_label.setObjectName("PlayerTwoCounter_label")
         self.gridLayout.addWidget(self.PlayerTwoCounter_label, 1, 3, 1, 1)

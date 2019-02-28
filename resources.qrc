@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="images">
     <file>imgs/magicLogo.png</file>
+    <file>imgs/Untitled-1.png</file>
   </qresource>
 </RCC>

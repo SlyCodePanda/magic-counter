@@ -31,8 +31,12 @@
       <widget class="QLabel" name="playerOneCounter_label">
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <pointsize>18</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/images/imgs/Untitled-1.png);
+color: rgb(255, 251, 213);</string>
        </property>
        <property name="text">
         <string>20</string>
@@ -68,8 +72,12 @@
       <widget class="QLabel" name="PlayerTwoCounter_label">
        <property name="font">
         <font>
-         <pointsize>20</pointsize>
+         <pointsize>18</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/images/imgs/Untitled-1.png);
+color: rgb(255, 251, 213);</string>
        </property>
        <property name="text">
         <string>20</string>
