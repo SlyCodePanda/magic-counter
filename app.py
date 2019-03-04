@@ -17,6 +17,8 @@ class AppWindow(QMainWindow):
     def home(self):
         # Setting base life points.
         self.basePoints = "20"
+        self.player02Counter = self.basePoints
+        self.player01Counter = self.basePoints
 
         # Tracking the subtracting and adding of life points.
         self.ui.TakeLife02_pushButton.clicked.connect(partial(self.takeLife, "player02"))
@@ -46,6 +48,7 @@ class AppWindow(QMainWindow):
 
             # Check if player 2 counter = 0.
             if self.ui.PlayerTwoCounter_label.text() == '0':
+                print("Player 2 life = %s" % self.player02Counter)
                 # Present pop-up window.
                 self.popup()
 
@@ -90,13 +93,11 @@ class AppWindow(QMainWindow):
     def popup(self):
         winner = ""
 
-        print("player 02 = %s" % self.player02Counter)
-
         #Find out who had the lowest health, and therefore find out the winner.
-        # if int(self.player01Counter) > int(self.player02Counter):
-        #     winner = self.player01Counter
-        # else:
-        #     winner = self.player02Counter
+        if int(self.player01Counter) > int(self.player02Counter):
+            winner = "Player One"
+        else:
+            winner = "Player Two"
 
         msgBox = QMessageBox()
         msgBox.setText("Congratulations! %s is the winner!" % winner)
