@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>434</width>
-    <height>306</height>
+    <width>440</width>
+    <height>173</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Settings</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>270</y>
-     <width>341</width>
+     <x>10</x>
+     <y>130</y>
+     <width>411</width>
      <height>32</height>
     </rect>
    </property>
@@ -32,13 +32,51 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>0</y>
-     <width>431</width>
-     <height>271</height>
+     <width>421</width>
+     <height>121</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout"/>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QLabel" name="playerTwoName_label">
+      <property name="text">
+       <string>Players Two Name:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="numberOfPlayers_label">
+      <property name="text">
+       <string>Number of Players:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="playerOneName_label">
+      <property name="text">
+       <string>Player One Name:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="playerTwoName_lineEdit"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="playerOneName_lineEdit"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QSpinBox" name="numberOfPlayers_spinBox">
+      <property name="minimum">
+       <number>2</number>
+      </property>
+      <property name="maximum">
+       <number>4</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

@@ -6,12 +6,30 @@ from settings import Ui_Dialog
 
 
 # Class for creating the settings window imported from settings.py
-class AppSettings(QDialog):
+class AppSettings(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
         self.settings = Ui_Dialog()
         self.settings.setupUi(self)
-        self.show()
+        self.setupUi(self)
+
+        # Setting default player names.
+        self.playerOneName = "Player One"
+        self.playerTwoName = "Player Two"
+
+        # ToDo : .textChanged (line 24) is not working. Not recognizing when lineEdit is changed.
+        # Change the names of the players
+        if self.settings.playerOneName_lineEdit.textChanged:
+            print("TEXT CHANGED!")
+        self.settings.playerOneName_lineEdit.textChanged.connect(self.syncLineEdit)
+        print("string: %s " % self.playerOneName)
+        # self.show()
+
+    # Call this function when the lineEdit element has been changed.
+    def syncLineEdit(self, text):
+        self.playerOneName = text
+        print("NEW TEXT : %s" % text)
+        return text
 
 
 # Class for creating the app window imported from the Ui_MainWindow class in mainWindow.py.
@@ -51,7 +69,9 @@ class AppWindow(QMainWindow):
     # Function used for opening up the settings dialog box in the edit menu.
     def openSettings(self):
         self.settingsWindow = AppSettings()
-        self.settingsWindow.show()
+        self.settingsWindow.exec_()
+
+        print("New name recieved: %s" % self.settingsWindow.playerOneName)
 
     # Functions that handles adding and subtracting life from players.
     def takeLife(self, player):
