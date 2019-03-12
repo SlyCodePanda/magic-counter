@@ -13,3 +13,5 @@ The idea for this project is to create a nice and simple counter for a game of M
 ### Software To Use
 <b>Programming language</b> : Python 3<br>
 <b>UI</b> : PyQt 5 & Qt Designer
+
+Full error documentation and write-up can be found here: https://trashpanda.fandom.com/wiki/Magic_Counter
