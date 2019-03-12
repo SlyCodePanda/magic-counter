@@ -1,7 +1,17 @@
 import sys
 from functools import partial
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog
 from mainWindow import Ui_MainWindow
+from settings import Ui_Dialog
+
+
+# Class for creating the settings window imported from settings.py
+class AppSettings(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.settings = Ui_Dialog()
+        self.settings.setupUi(self)
+        self.show()
 
 
 # Class for creating the app window imported from the Ui_MainWindow class in mainWindow.py.
@@ -30,7 +40,18 @@ class AppWindow(QMainWindow):
         # Tracking reset of life points.
         self.ui.reset_pushButton.clicked.connect(partial(self.reset))
 
+        # Open settings dialog.
+        self.ui.settings_action.triggered.connect(self.openSettings)
+
+        # Exit menu item.
+        self.ui.actionQuit.triggered.connect(self.close)
+
         self.show()
+
+    # Function used for opening up the settings dialog box in the edit menu.
+    def openSettings(self):
+        self.settingsWindow = AppSettings()
+        self.settingsWindow.show()
 
     # Functions that handles adding and subtracting life from players.
     def takeLife(self, player):
@@ -104,6 +125,9 @@ class AppWindow(QMainWindow):
 
         msgBox.show()
         msgBox.exec_()
+
+        # Reset life points.
+        self.reset()
 
     # Reset all player health to base value.
     def reset(self):

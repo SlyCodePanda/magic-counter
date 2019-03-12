@@ -98,10 +98,10 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.actionQuit = QtWidgets.QAction(MainWindow)
         self.actionQuit.setObjectName("actionQuit")
-        self.actionSettings = QtWidgets.QAction(MainWindow)
-        self.actionSettings.setObjectName("actionSettings")
+        self.settings_action = QtWidgets.QAction(MainWindow)
+        self.settings_action.setObjectName("settings_action")
         self.menuFile.addAction(self.actionQuit)
-        self.menuEdit.addAction(self.actionSettings)
+        self.menuEdit.addAction(self.settings_action)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
 
@@ -123,6 +123,6 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
-        self.actionSettings.setText(_translate("MainWindow", "Settings"))
+        self.settings_action.setText(_translate("MainWindow", "Settings"))
 
 import resources_rc

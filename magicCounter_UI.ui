@@ -188,7 +188,7 @@ color: rgb(255, 251, 213);</string>
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionSettings"/>
+    <addaction name="settings_action"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -199,7 +199,7 @@ color: rgb(255, 251, 213);</string>
     <string>Quit</string>
    </property>
   </action>
-  <action name="actionSettings">
+  <action name="settings_action">
    <property name="text">
     <string>Settings</string>
    </property>
