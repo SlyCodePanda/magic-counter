@@ -10,6 +10,13 @@ The idea for this project is to create a nice and simple counter for a game of M
 * Be able to change settings for the amount of life points players start on.
 * Change colour of Player counter areas based on set colour used (Red, Blue, Green, Black, White).
 
+### To Use
+Download files and run:
+```
+python app.py
+```
+in the command line in the directory of where the files are downloaded.
+
 ### Software To Use
 <b>Programming language</b> : Python 3<br>
 <b>UI</b> : PyQt 5 & Qt Designer
