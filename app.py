@@ -17,19 +17,16 @@ class AppSettings(QDialog, Ui_Dialog):
         self.playerOneName = "Player One"
         self.playerTwoName = "Player Two"
 
-        # ToDo : .textChanged (line 24) is not working. Not recognizing when lineEdit is changed.
         # Change the names of the players
-        if self.settings.playerOneName_lineEdit.textChanged:
-            print("TEXT CHANGED!")
-        self.settings.playerOneName_lineEdit.textChanged.connect(self.syncLineEdit)
-        print("string: %s " % self.playerOneName)
-        # self.show()
+        self.playerOneName_lineEdit.textChanged.connect(self.sync_Player01LineEdit)
+        self.playerTwoName_lineEdit.textChanged.connect(self.sync_Player02LineEdit)
 
     # Call this function when the lineEdit element has been changed.
-    def syncLineEdit(self, text):
+    def sync_Player01LineEdit(self, text):
         self.playerOneName = text
-        print("NEW TEXT : %s" % text)
-        return text
+
+    def sync_Player02LineEdit(self, text):
+        self.playerTwoName = text
 
 
 # Class for creating the app window imported from the Ui_MainWindow class in mainWindow.py.
@@ -71,7 +68,8 @@ class AppWindow(QMainWindow):
         self.settingsWindow = AppSettings()
         self.settingsWindow.exec_()
 
-        print("New name recieved: %s" % self.settingsWindow.playerOneName)
+        self.ui.playerOne_label.setText(str(self.settingsWindow.playerOneName))
+        self.ui.playerTwo_label.setText(str(self.settingsWindow.playerTwoName))
 
     # Functions that handles adding and subtracting life from players.
     def takeLife(self, player):
@@ -136,9 +134,9 @@ class AppWindow(QMainWindow):
 
         #Find out who had the lowest health, and therefore find out the winner.
         if int(self.player01Counter) > int(self.player02Counter):
-            winner = "Player One"
+            winner = str(self.ui.playerOne_label.text())
         else:
-            winner = "Player Two"
+            winner = str(self.ui.playerTwo_label.text())
 
         msgBox = QMessageBox()
         msgBox.setText("Congratulations! %s is the winner!" % winner)
