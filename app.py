@@ -3,6 +3,7 @@ from functools import partial
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog
 from mainWindow import Ui_MainWindow
 from settings import Ui_Dialog
+from player import Player
 
 
 # Class for creating the settings window imported from settings.py
@@ -40,23 +41,27 @@ class AppWindow(QMainWindow):
 
     # Functions concerning the home page.
     def home(self):
-        # Setting base life points.
-        self.basePoints = "20"
-        self.player02Counter = self.basePoints
-        self.player01Counter = self.basePoints
+        # Create two default player objects.
+        number_of_players = 1
+        self.player_one = Player(number_of_players)
+        number_of_players += 1
+        self.player_two = Player(number_of_players)
+
+        # Add players to a list of players.
+        self.players = [self.player_one, self.player_two]
 
         # Tracking the subtracting and adding of life points.
-        self.ui.TakeLife02_pushButton.clicked.connect(partial(self.takeLife, "player02"))
-        self.ui.TakeLife01_pushButton.clicked.connect(partial(self.takeLife, "player01"))
+        self.ui.TakeLife01_pushButton.clicked.connect(partial(self.take_life, self.player_one))
+        self.ui.TakeLife02_pushButton.clicked.connect(partial(self.take_life, self.player_two))
 
-        self.ui.AddLife02_pushButton.clicked.connect(partial(self.addLife, "player02"))
-        self.ui.AddLife01_pushButton.clicked.connect(partial(self.addLife, "player01"))
+        self.ui.AddLife01_pushButton.clicked.connect(partial(self.add_life, self.player_one))
+        self.ui.AddLife02_pushButton.clicked.connect(partial(self.add_life, self.player_two))
 
         # Tracking reset of life points.
-        self.ui.reset_pushButton.clicked.connect(partial(self.reset))
+        self.ui.reset_pushButton.clicked.connect(self.reset)
 
         # Open settings dialog.
-        self.ui.settings_action.triggered.connect(self.openSettings)
+        self.ui.settings_action.triggered.connect(self.open_settings)
 
         # Exit menu item.
         self.ui.actionQuit.triggered.connect(self.close)
@@ -64,7 +69,9 @@ class AppWindow(QMainWindow):
         self.show()
 
     # Function used for opening up the settings dialog box in the edit menu.
-    def openSettings(self):
+    def open_settings(self):
+        # ToDo: Currently the changes made to lineEdits are made even if you press the 'cancel' button on the
+        #  dialogue box. All changes get saved regardless of dialog closing via 'ok' or 'cancel'.
         self.settingsWindow = AppSettings()
         self.settingsWindow.exec_()
 
@@ -72,71 +79,37 @@ class AppWindow(QMainWindow):
         self.ui.playerTwo_label.setText(str(self.settingsWindow.playerTwoName))
 
     # Functions that handles adding and subtracting life from players.
-    def takeLife(self, player):
-        # TODO:
-        #  Come up with a better way of deducting points so it is easier to add more than just two players to games.
+    def take_life(self, player):
+        """
+        Handles subtracting life from given players.
+        :param player: Takes in a Player object to remove life from.
+        """
+        player.take_life()
+        self.change_label(player)
 
-        # Reducing Player 02 life points.
-        if player == "player02":
-            print("Taking life from player 2!")
-            # Getting the current life value of player 2.
-            self.player02Counter = int(self.ui.PlayerTwoCounter_label.text())
-            self.player02Counter = self.player02Counter - 1
-            print("Current life = %s" % self.player02Counter)
-            self.ui.PlayerTwoCounter_label.setText(str(self.player02Counter))
+        if player.life == 0:
+            self.popup()
 
-            # Check if player 2 counter = 0.
-            if self.ui.PlayerTwoCounter_label.text() == '0':
-                print("Player 2 life = %s" % self.player02Counter)
-                # Present pop-up window.
-                self.popup()
+    def add_life(self, player):
+        """
+        Handles giving life to a given player.
+        :param player: Takes in a Player object to give life to.
+        """
+        player.give_life()
+        self.change_label(player)
 
-        # Reducing Player 01 life points
-        elif player == "player01":
-            print("Taking life from player 1!")
-            # Getting the current life value of player 2.
-            self.player01Counter = int(self.ui.playerOneCounter_label.text())
-            self.player01Counter = self.player01Counter - 1
-            print("Current life = %s" % self.player01Counter)
-            self.ui.playerOneCounter_label.setText(str(self.player01Counter))
-
-            # Check if player 1 counter = 0.
-            if self.ui.playerOneCounter_label.text() == '0':
-                # Present pop-up window.
-                self.popup()
-
-        return
-
-    def addLife(self, player):
-        # Reducing Player 02 life points.
-        if player == "player02":
-            print("Adding life to player 2!")
-            # Getting the current life value of player 2.
-            self.player02Counter = int(self.ui.PlayerTwoCounter_label.text())
-            self.player02Counter = self.player02Counter + 1
-            print("Current life = %s" % self.player02Counter)
-            self.ui.PlayerTwoCounter_label.setText(str(self.player02Counter))
-
-        # Reducing Player 01 life points
-        elif player == "player01":
-            print("Adding life to player 1!")
-            # Getting the current life value of player 2.
-            self.player01Counter = int(self.ui.playerOneCounter_label.text())
-            self.player01Counter = self.player01Counter + 1
-            print("Current life = %s" % self.player01Counter)
-            self.ui.playerOneCounter_label.setText(str(self.player01Counter))
-
-        return
-
-    # Shows popup declaring who is the winner and who is the loser.
     def popup(self):
+        """
+        Displayes a popup window declaring a winner when a player's life reaches 0.
+        :return:
+        """
         winner = ""
 
         #Find out who had the lowest health, and therefore find out the winner.
-        if int(self.player01Counter) > int(self.player02Counter):
-            winner = str(self.ui.playerOne_label.text())
+        if self.player_one.life == 0:
+            winner = self.player_two.name
         else:
-            winner = str(self.ui.playerTwo_label.text())
+            winner = self.player_one.name
 
         msgBox = QMessageBox()
         msgBox.setText("Congratulations! %s is the winner!" % winner)
@@ -147,11 +120,28 @@ class AppWindow(QMainWindow):
         # Reset life points.
         self.reset()
 
-    # Reset all player health to base value.
     def reset(self):
+        """
+        Resets all player life points back to 20.
+        """
         print("Resetting life points to base number")
-        self.ui.playerOneCounter_label.setText(str(self.basePoints))
-        self.ui.PlayerTwoCounter_label.setText(str(self.basePoints))
+
+        # Iterate through the list of players and reset their lives to 20.
+        for player in self.players:
+            print("Current player : %s " % player.name)
+            player.reset_life()
+            self.change_label(player)
+
+    def change_label(self, player):
+        """
+        Decides which label to change based on the given players number (1 or 2).
+        :param player: Takes in a Player pbject.
+        :return:
+        """
+        if player.name_number == 1:
+            self.ui.playerOneCounter_label.setText(str(player.life))
+        elif player.name_number == 2:
+            self.ui.PlayerTwoCounter_label.setText(str(player.life))
 
 
 # Main.
