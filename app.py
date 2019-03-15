@@ -8,25 +8,36 @@ from player import Player
 
 # Class for creating the settings window imported from settings.py
 class AppSettings(QDialog, Ui_Dialog):
-    def __init__(self):
+    def __init__(self, player1, player2, *args):
         super().__init__()
         self.settings = Ui_Dialog()
         self.settings.setupUi(self)
         self.setupUi(self)
 
         # Setting default player names.
-        self.playerOneName = "Player One"
-        self.playerTwoName = "Player Two"
+        self.playerOneName = player1.name
+        self.playerTwoName = player2.name
+
+        print("Player 01's current name is %s " % self.playerOneName)
 
         # Change the names of the players
-        self.playerOneName_lineEdit.textChanged.connect(self.sync_Player01LineEdit)
-        self.playerTwoName_lineEdit.textChanged.connect(self.sync_Player02LineEdit)
+        self.playerOneName_lineEdit.textChanged.connect(self.sync_player01_line_edit)
+        player1.set_name(self.playerOneName)
+
+        print("Player 01 new name is %s " % player1.name)
+
+        self.playerTwoName_lineEdit.textChanged.connect(self.sync_player02_line_edit)
+        player2.set_name(self.playerTwoName)
+
+        print("Player 02 new name is %s " % player2.name)
+
+        # ToDo: Need to figure out a way to change the Player object's names within the settings window.
 
     # Call this function when the lineEdit element has been changed.
-    def sync_Player01LineEdit(self, text):
+    def sync_player01_line_edit(self, text):
         self.playerOneName = text
 
-    def sync_Player02LineEdit(self, text):
+    def sync_player02_line_edit(self, text):
         self.playerTwoName = text
 
 
@@ -44,8 +55,11 @@ class AppWindow(QMainWindow):
         # Create two default player objects.
         number_of_players = 1
         self.player_one = Player(number_of_players)
+        self.ui.playerOne_label.setText(self.player_one.name)
+
         number_of_players += 1
         self.player_two = Player(number_of_players)
+        self.ui.playerTwo_label.setText(self.player_two.name)
 
         # Add players to a list of players.
         self.players = [self.player_one, self.player_two]
@@ -61,7 +75,7 @@ class AppWindow(QMainWindow):
         self.ui.reset_pushButton.clicked.connect(self.reset)
 
         # Open settings dialog.
-        self.ui.settings_action.triggered.connect(self.open_settings)
+        self.ui.settings_action.triggered.connect(partial(self.open_settings))
 
         # Exit menu item.
         self.ui.actionQuit.triggered.connect(self.close)
@@ -72,7 +86,7 @@ class AppWindow(QMainWindow):
     def open_settings(self):
         # ToDo: Currently the changes made to lineEdits are made even if you press the 'cancel' button on the
         #  dialogue box. All changes get saved regardless of dialog closing via 'ok' or 'cancel'.
-        self.settingsWindow = AppSettings()
+        self.settingsWindow = AppSettings(self.player_one, self.player_two)
         self.settingsWindow.exec_()
 
         self.ui.playerOne_label.setText(str(self.settingsWindow.playerOneName))
@@ -89,6 +103,7 @@ class AppWindow(QMainWindow):
 
         if player.life == 0:
             self.popup()
+
 
     def add_life(self, player):
         """
