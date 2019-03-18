@@ -1,7 +1,6 @@
 import sys
 from functools import partial
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog
-from PyQt5.QtCore import QTimer
 
 # Importing UI files.
 from mainWindow import Ui_MainWindow
@@ -19,19 +18,43 @@ class AppSettings(QDialog, Ui_Dialog):
         self.settings.setupUi(self)
         self.setupUi(self)
 
-        # Setting default player names.
+        # ToDo: Need to set the order of selection in the dialog window.
+        #  So tabbing through the items gives you what you would expect.
+
+        # Storing old names.
+        self.player1_old_name = player1.name
+        self.player2_old_name = player2.name
+
+        # Setting the lineEdits to the current player names.
+        self.playerOneName_lineEdit.setText(player1.name)
+        self.playerTwoName_lineEdit.setText(player2.name)
+
+        # Storing passed in player objects in local variables.
         self.player1 = player1
         self.player2 = player2
 
-        self.playerOneName = ""
-        self.playerTwoName = ""
+        # Initial player name values.
+        self.playerOneName = self.player1.name
+        self.playerTwoName = self.player2.name
 
         # Get changes from lineEdits when user types in them.
         self.playerOneName_lineEdit.textChanged.connect(self.sync_player01_line_edit)
         self.playerTwoName_lineEdit.textChanged.connect(self.sync_player02_line_edit)
 
         # A signal that runs the set_settings() function when set button is pressed.
-        self.set_pushButton.clicked.connect(self.set_settings)
+        self.apply_pushButton.clicked.connect(self.set_settings)
+
+        # If close is clicked, don't change any of the names, regardless of what is typed in lineEdits.
+        self.buttonBox.rejected.connect(self.cancel_settings)
+
+
+    def cancel_settings(self):
+        """
+        When the Cancel button in the settings dialog is pressed, the player names are set to their initial old names.
+        """
+        print("Cancelling settings...")
+        self.player1.set_name(self.player1_old_name)
+        self.player2.set_name(self.player2_old_name)
 
     def set_settings(self):
         """
@@ -41,7 +64,7 @@ class AppSettings(QDialog, Ui_Dialog):
         self.player1.set_name(self.playerOneName)
         self.player2.set_name(self.playerTwoName)
 
-    # Call this function when the lineEdit element has been changed.
+    # Call these functions when the lineEdit element has been changed.
     def sync_player01_line_edit(self, text):
         self.playerOneName = text
 
@@ -92,13 +115,15 @@ class AppWindow(QMainWindow):
 
     # Function used for opening up the settings dialog box in the edit menu.
     def open_settings(self):
-        # ToDo: Currently the changes made to lineEdits are made even if you press the 'cancel' button on the
-        #  dialogue box. All changes get saved regardless of dialog closing via 'ok' or 'cancel'.
+        """
+        Opens the settings dialog box and passes Player objects to it.
+        Also changes the player name labels to whatever new name may or may not have been given to players.
+        """
         self.settingsWindow = AppSettings(self.player_one, self.player_two)
         self.settingsWindow.exec_()
 
-        self.ui.playerOne_label.setText(str(self.settingsWindow.playerOneName))
-        self.ui.playerTwo_label.setText(str(self.settingsWindow.playerTwoName))
+        self.ui.playerOne_label.setText(str(self.player_one.name))
+        self.ui.playerTwo_label.setText(str(self.player_two.name))
 
     # Functions that handles adding and subtracting life from players.
     def take_life(self, player):
