@@ -20,6 +20,7 @@ class Player(object):
         """
 
         self.name = new_name
+        print("The Players new name is %s " % self.name)
 
     def give_life(self):
         """

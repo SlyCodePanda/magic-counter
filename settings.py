@@ -43,6 +43,9 @@ class Ui_Dialog(object):
         self.numberOfPlayers_spinBox.setMaximum(4)
         self.numberOfPlayers_spinBox.setObjectName("numberOfPlayers_spinBox")
         self.gridLayout.addWidget(self.numberOfPlayers_spinBox, 3, 1, 1, 1)
+        self.set_pushButton = QtWidgets.QPushButton(Dialog)
+        self.set_pushButton.setGeometry(QtCore.QRect(10, 130, 75, 23))
+        self.set_pushButton.setObjectName("set_pushButton")
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept)
@@ -55,4 +58,5 @@ class Ui_Dialog(object):
         self.playerTwoName_label.setText(_translate("Dialog", "Players Two Name:"))
         self.numberOfPlayers_label.setText(_translate("Dialog", "Number of Players:"))
         self.playerOneName_label.setText(_translate("Dialog", "Player One Name:"))
+        self.set_pushButton.setText(_translate("Dialog", "Set"))
 

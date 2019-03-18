@@ -1,8 +1,13 @@
 import sys
 from functools import partial
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog
+from PyQt5.QtCore import QTimer
+
+# Importing UI files.
 from mainWindow import Ui_MainWindow
 from settings import Ui_Dialog
+
+# Importing Player class.
 from player import Player
 
 
@@ -15,23 +20,26 @@ class AppSettings(QDialog, Ui_Dialog):
         self.setupUi(self)
 
         # Setting default player names.
-        self.playerOneName = player1.name
-        self.playerTwoName = player2.name
+        self.player1 = player1
+        self.player2 = player2
 
-        print("Player 01's current name is %s " % self.playerOneName)
+        self.playerOneName = ""
+        self.playerTwoName = ""
 
-        # Change the names of the players
+        # Get changes from lineEdits when user types in them.
         self.playerOneName_lineEdit.textChanged.connect(self.sync_player01_line_edit)
-        player1.set_name(self.playerOneName)
-
-        print("Player 01 new name is %s " % player1.name)
-
         self.playerTwoName_lineEdit.textChanged.connect(self.sync_player02_line_edit)
-        player2.set_name(self.playerTwoName)
 
-        print("Player 02 new name is %s " % player2.name)
+        # A signal that runs the set_settings() function when set button is pressed.
+        self.set_pushButton.clicked.connect(self.set_settings)
 
-        # ToDo: Need to figure out a way to change the Player object's names within the settings window.
+    def set_settings(self):
+        """
+        Changes the names of the Player objects.
+        """
+        print("Setting changes...")
+        self.player1.set_name(self.playerOneName)
+        self.player2.set_name(self.playerTwoName)
 
     # Call this function when the lineEdit element has been changed.
     def sync_player01_line_edit(self, text):
