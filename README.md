@@ -2,7 +2,6 @@
 The idea for this project is to create a nice and simple counter for a game of Magic: The Gathering.
 
 ### Base Features
-* ~Ability to add up to 4 players with a base of 20 life points.~
 * Ability to change the names of the created players.
 * Have  + and - buttons for adding and subtracting life points.
 
@@ -22,3 +21,5 @@ in the command line in the directory of where the files are downloaded.
 <b>UI</b> : PyQt 5 & Qt Designer
 
 Full error documentation and write-up can be found here: https://trashpanda.fandom.com/wiki/Magic_Counter
+
+I plan on building a more advanced version in the future with more features such allowing for more than two players.
