@@ -46,33 +46,16 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="numberOfPlayers_label">
-      <property name="text">
-       <string>Number of Players:</string>
-      </property>
-     </widget>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="playerOneName_lineEdit"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="playerTwoName_lineEdit"/>
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="playerOneName_label">
       <property name="text">
        <string>Player One Name:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="playerTwoName_lineEdit"/>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="playerOneName_lineEdit"/>
-    </item>
-    <item row="3" column="1">
-     <widget class="QSpinBox" name="numberOfPlayers_spinBox">
-      <property name="minimum">
-       <number>2</number>
-      </property>
-      <property name="maximum">
-       <number>4</number>
       </property>
      </widget>
     </item>
@@ -92,6 +75,11 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>playerOneName_lineEdit</tabstop>
+  <tabstop>playerTwoName_lineEdit</tabstop>
+  <tabstop>apply_pushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

@@ -20,6 +20,8 @@ class AppSettings(QDialog, Ui_Dialog):
         self.settings.setupUi(self)
         self.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon('imgs//mtg_icon.png'))
+
         # ToDo: Need to set the order of selection in the dialog window.
         #  So tabbing through the items gives you what you would expect.
 
@@ -82,6 +84,7 @@ class AppWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowTitle("MtG: Life Counter")
+        # ToDo: Use pathlib to set img paths so app will work regardless of operating system.
         self.setWindowIcon(QtGui.QIcon('imgs//mtg_icon.png'))
 
         self.home()
