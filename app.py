@@ -1,6 +1,8 @@
 import sys
 from functools import partial
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QDialog
+from PyQt5 import QtGui
+from pathlib import Path
 
 # Importing UI files.
 from mainWindow import Ui_MainWindow
@@ -78,6 +80,9 @@ class AppWindow(QMainWindow):
         super(AppWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.setWindowTitle("MtG: Life Counter")
+        self.setWindowIcon(QtGui.QIcon('imgs//mtg_icon.png'))
 
         self.home()
 
@@ -160,7 +165,9 @@ class AppWindow(QMainWindow):
             winner = self.player_one.name
 
         msgBox = QMessageBox()
+        msgBox.setWindowTitle('Winner!')
         msgBox.setText("Congratulations! %s is the winner!" % winner)
+        msgBox.setWindowIcon(QtGui.QIcon('imgs//mtg_icon.png'))
 
         msgBox.show()
         msgBox.exec_()
